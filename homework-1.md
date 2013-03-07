@@ -15,8 +15,8 @@ Introducir al alumno a las tecnologías que usaremos durante el semestre, inhere
 
 - Herramienta de Modelado: ER Studio 7.5
 - DBMS: MySQL, (se recomiendan cliente de línea de comando o MySQL Workbench).
-- SCM: Git/GitGUI (hay un instalador especial para Windows).
-- Repositorio Central: www.github.com
+- SCM: Git/GitGUI. Hay un [http://code.google.com/p/msysgit/downloads/detail?name=Git-1.8.1.2-preview20130201.exe&can=2&q=full+installer+official+git](instalador) (recomendado) especial para Windows, o se puede usar la [app oficial](https://windows.github.com) de Github para Windows.
+- Repositorio Central: https://github.com/hisapy/uni-bd-2013, aquí se entregaran los trabajos entre otros.
 - Issue Tracker: www.github.com tiene un issue tracker incorporado.
 
 ## Instrucciones
