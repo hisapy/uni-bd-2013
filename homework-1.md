@@ -1,4 +1,4 @@
-K# Bases de Datos - Laboratorio - Trabajo #1
+# Bases de Datos - Laboratorio - Trabajo #1
 
 ## Introducción a RDBMS, Herramientas de Modelado, SQL y Git/GitHub
 
@@ -21,9 +21,9 @@ Introducir al alumno a las tecnologías que usaremos durante el semestre, inhere
 
 ## Instrucciones
 
-1.Instalar todos los programas necesarios.
-2.Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo.
-3.Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido).
-4.Commit del archivo con las respuestas en sus respectivos repos en github.com.
+1. Instalar todos los programas necesarios.
+2. Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo.
+3. Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido).
+4. Commit del archivo con las respuestas en sus respectivos repos en github.com.
 
 
