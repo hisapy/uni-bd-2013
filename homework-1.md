@@ -22,8 +22,15 @@ Introducir al alumno a las tecnologías que usaremos durante el semestre, inhere
 ## Instrucciones
 
 1. Instalar todos los programas necesarios.
-2. Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo.
-3. Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido).
+2. Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo. Cada alumno será agregado como colaborador.
+3. Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido). El archivo hisakazu.ishibashi.intro_joins.sql
 4. Commit del archivo con las respuestas en sus respectivos repos en github.com.
+5. Enviarme (al repo del cual hicieron el fork) un pull-request de sus repos conteniendo el archivo solicitado en el punto anterior.
+
+## Issue Tracker
+
+En el issue tracker https://github.com/hisapy/uni-bd-2013/issues podrán hacer las preguntas que tengan en relación a los ejercicios del semestre, creando el un issue con el label(etiqueta) _Question_. Las respuestas pueden ser asignadas directamente a mi, a nadie o cualquiera, y cualquiera que tenga una respuesta puede colaborar, pero por favor no usar para divulgar una solución a algún ejercicio propuesto.
+
+
 
 
