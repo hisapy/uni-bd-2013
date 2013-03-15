@@ -16,7 +16,7 @@ select name from members left outer join loans on id = member_id where member_id
 --5) Ver todos los libros en stock
 select title from books left outer join loans on id = book_id where book_id is null;
 --6) Lista de todos los titulos prestados actualmente con el nombre de los
-socios que lo prestaron
+--socios que lo prestaron
 select name, title 
 from members m, books b left outer join loans
 on b.id = book_id 
