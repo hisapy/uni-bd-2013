@@ -1,6 +1,6 @@
-# Bases de Datos - Laboratorio - Trabajo #1
+# Bases de Datos - Laboratorio - Trabajo #2
 
-## Introducción a RDBMS, Herramientas de Modelado, SQL y Git/GitHub
+## Introducción a Diseño y Desarrollo de Vistas, Procedimientos Almacenados y Triggers.
 
 <br />
 
@@ -9,28 +9,23 @@
 
 ## Objetivo
 
-Introducir al alumno a las tecnologías que usaremos durante el semestre, inherentes al estudio de Bases de Datos tales como Sistemas de Administración de Bases de Datos Relacionales (RDBMS por sus siglas en inglés) y el lenguaje SQL, y Herramientas de Modelado de BDs para generación de código SQL e ingeniería inversa de BDs, y al mismo tiempo empezar a conocer herramientas para el desarrollo y trabajo en equipo tales como Sistemas de Mantenimiento de Código (SCM por sus siglas en inglés) y Herramientas de Seguimiento de Tareas más comúnmente conocidas como Issue Trackers.
+Demostrar al alumno como se pueden utilizar los distintos objetos de bases de datos disponibles para que el programador pueda encapsular la *"lógica del negocio"* como un API en la base de datos, haciendo de paso una breve introducción al análisis de requerimientos de un software a partir de un relato de usuario (user story), para identificar casos de uso del mismo.
 
 ## Tecnologías a ser usadas en este trabajo
 
-- Herramienta de Modelado: ER Studio 7.5
-- DBMS: MySQL, el mismo que instalaron en el laboratorio (se recomiendan cliente de línea de comando o MySQL Workbench).
-- SCM: Git/GitGUI. Hay un [instalador](http://code.google.com/p/msysgit/downloads/detail?name=Git-1.8.1.2-preview20130201.exe&can=2&q=full+installer+official+git) (recomendado) especial para Windows, o se puede usar la app oficial de [Github para Windows](https://windows.github.com).
-- Repositorio Central: https://github.com/hisapy/uni-bd-2013 (este repo), aquí se entregaran los trabajos entre otros.
-- Issue Tracker: www.github.com tiene un issue tracker incorporado.
+- Las mismas tecnologías utilizadas en el trabajo anterior.
+- Lenguaje de programación Ruby, y su API de conexión a MySQL.
 
-## Instrucciones
+## Instrucciones Parte I (A entregarse el: )
 
-1. Instalar todos los programas necesarios.
-2. Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo. Cada alumno será agregado como colaborador.
-3. Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido). El archivo hisakazu.ishibashi.intro_joins.sql
-4. Commit del archivo con las respuestas en sus respectivos repos en github.com.
-5. Enviarme (al repo del cual hicieron el fork) un pull-request de sus repos conteniendo el archivo solicitado en el punto anterior.
-
-## Issue Tracker
-
-En el issue tracker https://github.com/hisapy/uni-bd-2013/issues podrán hacer las preguntas que tengan en relación a los ejercicios del semestre, creando el un issue con el label(etiqueta) _Question_. Las respuestas pueden ser asignadas directamente a mi, a nadie o cualquiera, y cualquiera que tenga una respuesta puede colaborar, pero por favor no usar para divulgar una solución a algún ejercicio propuesto.
+1. 
 
 
+## Instrucciones Parte II (A entregarse el: )
+
+1.
+
+
+## Forma de entrega
 
 
