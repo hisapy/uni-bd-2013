@@ -14,7 +14,7 @@ Demostrar al alumno como se pueden utilizar los distintos objetos de bases de da
 ## Tecnologías a ser usadas en este trabajo
 
 - Las mismas tecnologías utilizadas en el trabajo anterior.
-- Lenguaje de programación Ruby, y su API de conexión a MySQL.
+- Lenguaje de programación Ruby, y su API de conexión a MySQL y a PostgreSQL.
 
 ## Acerca del Problema a ser resuelto.
 
@@ -24,21 +24,25 @@ En este trabajo se continuará con la base de datos del trabajo #1, Introducció
 - *books*: Los libros de la biblioteca.
 - *loans*: Registro de préstamos de libros, en donde se registran el member_id y el book_id correspondiente.
 
+Básicamente lo que hay que hacer en este trabajo es adaptar dicha BD (o crear una nueva) a los siguientes requerimientos de almacenamiento:
+
+1. Los socios (*members*) deberán ser registrados con su número de cédula de identidad, nombre, apellido, fecha de nacimiento, sexo, carrera (Ingeniería Civil, Electronmecánica, etc), fecha de inscripción.
+2. Los libros (*books*) deberán ser registrados con su autor, titulo, género, categoría, ISBN. En este sentido hay que aclarar que cada libro cuenta con al menos una copia la cual deberá estar identificacda de manera única.
+3. Los préstamos (*loans*) deberán registrar la copia del libro prestado, el socio a quien se presta el libro, la fecha del préstamo, fecha límite del préstamo, y la fecha de devolución del libro (la fecha en la cual el socio hizo ha devuelto un libro a la biblioteca).
+
+Consecuentemente, existirán requerimientos en cuanto a integridad de datos y reglas de negocio, las cuales deberán ser implementadas y cumplidas en la base de datos. 
+
+Todos los requerimientos serán especificados en issues en el *issue tracker*
 
 
-## Forma de entrega
-Todo el DDL correspondientes a los ejercicios que se proponen a continuación deben ser entregados en un archivo llamado nombre.apellido.tp2.sql, similar a como se ha especificado en el trabajo anterior.
+## Issue Tracker e Instrucciones
 
-## Instrucciones Parte I (A entregarse el: )
+El milestone para este trabajo es el milestone [Trabajo 2](https://github.com/hisapy/uni-bd-2013/issues?milestone=2). Ahí se especificará cada issue correspondiente a este trabajo y será también el lugar donde se harán las preguntas y respuestas pertinentes. Favor utilizar solo este medio para consultas. No se aceptarán preguntas por email.
 
-1. Crear la vista
+A diferencia del trabajo anterior, este milestone tendrá varios issues. Cada commit deberá referenciar algún issue, de la misma forma en que se ha referenciado el único issue del trabajo anterior, utilizando #N en el comentario del commit, y siendo N el número del issue correspondiente al cual se quiere hacer referencia.
 
+## Forma y Fecha de entrega
 
-## Instrucciones Parte II (A entregarse el: )
+Todo el DDL/DML correspondientes a los ejercicios que se proponen en los issues deben ser entregados via pull request en un archivo llamado nombre.apellido.tp2.sql (_siendo nombre el 1er nombre del alumno y apellido el 1er apellido del alumno_) en el directorio trabajo-2.
 
-1.
-
-
-
-
-
+La fecha limíte para la finalización del milestone es el 07 de mayo de 2013, antes de la 1 de la tarde.
