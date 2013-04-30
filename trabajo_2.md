@@ -1,6 +1,6 @@
 # Bases de Datos - Laboratorio - Trabajo #2
 
-## Introducción a Diseño y Desarrollo de Vistas, Procedimientos Almacenados y Triggers.
+## Introducción a Diseño y Desarrollo de Vistas, Procedimientos Almacenados y Triggers, y programación con Base de Datos.
 
 <br />
 
