@@ -1,0 +1,252 @@
+# encoding: utf-8
+require 'mysql2'  #Ruby gem que se usa para conectar a mysql
+require 'pg'  #Ruby gem que se usa para conectar a postgres
+
+=begin
+  Este archivo especifica tareas RAKE a ser utilizadas en el Trabajo - 2 de clases de Laboratorio de Base de Datos, Ing. Informática, UNI.
+  Su propósito es totalmente académico y apunta a introducir al alumno a la programación de aplicaciones con conexión a BDs y al mismo tiempo al lenguaje Ruby.
+  
+  Cada tarea tiene una descripción correspondiente, y se puede ver la lista de tareas rake en el directorio con el comando 
+  
+  rake -T
+  
+  Las variables de entorno mas abajo pueden se especificadas en linea de comando cuando se ejecutan las tareas.
+  
+  Por ejemplo:
+  
+    rake uni-bd-2013:tp2:pg_db_from_tp1
+  
+  @author Univ. Hisakazu Ishibashi - hisa@iporaitech.com
+=end
+
+#Variables de entorno para la conexion con MySQL
+ENV['MYSQL_HOST'] ||= "localhost"
+ENV['MYSQL_USER'] ||= "root"
+ENV['MYSQL_PASSWD'] ||= ""
+ENV['MYSQL_PORT'] ||= '3306'
+ENV['MYSQL_DB'] ||= "intro_joins"
+
+#Variables de entorno para la conexion con Postgres
+ENV['PG_HOST'] ||= "localhost"
+ENV['PG_USER'] ||= "postgres"
+ENV['PG_PASSWD'] ||= ""
+ENV['PG_PORT'] ||= '5432'
+=begin
+  PostgreSQL requiere q se especifique una BD para establecer la conexion (maintenance database).
+  
+  Luego de conectarse al servidor se puede cambiar la BD de la conexion a otra. En la consola de psql
+  esto se realiza con el comando \connect
+  
+  Por ejemplo:
+  
+  \connect uniBd2013_library 
+=end
+ENV['PG_INIT_DB'] ||= "postgres" 
+ 
+
+
+#  Algunas clases para que vean un poco de orientacion abjectos en Ruby.
+class Conexion
+  attr_reader :client #esto es similar a declarar el metodo client para obtener la variable de instancia @client
+  
+  def print_cmd cmd
+    puts "Ejecutando el comando: #{cmd} ..."  
+  end
+end
+class MysqlIntroJoins < Conexion
+=begin
+  constructor - crea una conexion a Mysql(@client)
+  
+  El adaptador mysql2 no tiene soporte para Prepared Statements
+  
+  No MySQL support (Ver en: http://patshaughnessy.net/2011/10/22/show-some-love-for-prepared-statements-in-rails-3-1)
+  
+  If you watch @Tenderlove’s presentation or if you just read the code inside the different ActiveRecord adapter classes, 
+  you’ll notice that for MySQL there’s no implementation of prepared statements in Rails (at least using the newer mysql2 gem and adapter). 
+  However, don’t blame the Rails team; the reason it’s not supported is that actually MySQL slows down when you start using prepared statements, 
+  and it turns out to be faster not to use them at all. So send that love to the Rails team anyway… they’re helping us out again by avoiding this 
+  performance bottleneck!
+  
+  Para saber la definicion de Prepared Statements busquen en Google o vean Wikipedia.
+=end
+  def initialize
+    begin
+      # https://github.com/brianmario/mysql2
+      @client = Mysql2::Client.new(
+        host: ENV['MYSQL_HOST'], 
+        username: ENV['MYSQL_USER'],
+        password: ENV['MYSQL_PASSWD'], 
+        port: ENV['MYSQL_PORT'].to_i, 
+        database: ENV['MYSQL_DB'],
+        encoding: 'utf8'  #este tipo de encoding da soporte a caracteres del idioma español
+      )
+    rescue Mysql2::Error => e
+      puts "Ha ocurrido un error en MySQL: #{e.error} (Errno: #{e.errno})"
+    end
+  end
+  def get_tables
+    # http://dev.mysql.com/doc/refman/5.0/en/show-tables.html
+    sql = "SHOW FULL TABLES where table_type != 'VIEW'"
+    print_cmd sql
+    tbls = []
+    @client.query(sql, as: :array).each do |t|
+      tbls<<t[0]
+    end
+    tbls 
+  end
+  def get_columns(tbl_name)
+    sql = "select column_name, column_type from INFORMATION_SCHEMA.COLUMNS where table_schema = 'intro_joins' AND table_name = '#{tbl_name}'"
+    print_cmd sql
+    @client.query(sql, as: :hash)
+  end
+  def get_foreign_keys(tbl_name)
+    sql = "select column_name, referenced_table_name, referenced_column_name from INFORMATION_SCHEMA.key_column_usage where table_schema = 'intro_joins' and table_name = '#{tbl_name}' and referenced_table_name is not null"
+    print_cmd sql
+    @client.query(sql, as: :hash)
+  end  
+  def get_data(tbl_name)
+    @client.query('select * from #{tbl_name}')
+  end
+end
+
+
+class PgTrabajo2 < Conexion
+  
+  @dbname = 'uni_bd2013_library'
+  
+  # Class instance variable (cada clase tiene una variable que no es compartida por sus subclases)
+  class << self
+    attr_accessor :dbname
+  end
+  
+  #constructor - crea una conexion y los prepared statements 
+  def initialize dbname = nil
+    # http://deveiate.org/code/pg/PGconn.html
+    @client = PG::Connection.new(
+      host: ENV['PG_HOST'], 
+      user: ENV['PG_USER'],
+      password: ENV['PG_PASSWD'], 
+      port: ENV['PG_PORT'].to_i, 
+      dbname: (dbname ? dbname : ENV['PG_INIT_DB'])
+    )
+    @client.client_encoding = 'utf8'
+  rescue PG::Error =>e
+    puts "PG::Error #{e}"
+  end
+  
+  def create_db
+    sql = "CREATE DATABASE #{self.class.dbname} WITH TEMPLATE = template0 ENCODING = 'UTF8'"
+    print_cmd sql
+    @client.exec sql 
+    @client.flush
+  rescue PG::Error =>e
+    puts "PG::Error #{e}"
+    # ver http://www.postgresql.org/docs/8.2/static/errcodes-appendix.html
+    if e.result.error_field(PG::Result::PG_DIAG_SQLSTATE) === "42P04"
+      print "Presione S si desea borrar la BD existentee intentar crearla nuevamente. N en caso contrario: "
+      borrar = $stdin.gets
+      drop_db && create_db if borrar === "S\n"
+    end
+  end
+  
+  def drop_db
+    sql = "DROP DATABASE #{self.class.dbname}"
+    print_cmd sql
+    @client.exec sql
+    @client.flush
+  rescue PG::Error =>e
+    puts "PG::Error #{e}"
+  end
+  
+  # Crea un schema con el nombre pasado como parametro
+  def create_schema nombre
+    sql = "CREATE SCHEMA #{nombre}"
+    print_cmd sql
+    @client.exec sql
+    @client.flush
+  rescue PG::Error =>e
+    puts "PG::Error #{e}"  
+  end
+  
+  # Borra el schema y todas los objetos que han sido creados adentro del mismo.
+  def drop_schema nombre
+    sql = "DROP SCHEMA #{nombre} CASCADE"
+    print_cmd sql
+    @client.exec sql
+    @client.flush
+  rescue PG::Error =>e
+    puts "PG::Error #{e}"  
+  end
+  
+  def closeConnection
+    @client.finish if @client
+  end
+end
+
+
+namespace :"uni-bd-2013" do
+  namespace :tp2 do
+    desc "Crea un archivo que contiene el metadata de la BD de Postgres."
+    task :dump_schema do |t, args|
+      if ENV['SCHEMA_NAME']
+        exec("pg_dump -U #{ENV['PG_USER']} -W -n #{ENV['SCHEMA_NAME']} --schema-only #{PgTrabajo2.dbname} > #{ENV['SCHEMA_NAME']}.sql")
+      else
+        puts "Debe especificar el SCHEMA_NAME que ha utilizado para el Trabajo 2." 
+        puts "Ejemplo:"
+        puts "rake uni-bd-2013:tp2:dump_schema SCHEMA_NAME=hisakazu_ishibashi"
+      end  
+    end
+    desc "Crea la BD y el script correspondiente uniBd2013_library en Postgres copiando las tablas de la BD #{ENV['DB_NAME']} de MySQL al schema definido por el usuario en la variable de entorno SCHEMA_NAME, "
+    task :pg_db_from_tp1 do |t, args|   
+      if ENV['SCHEMA_NAME']
+        # creamos el objeto que maneja las operaciones de la BD MySQL
+        mysql = MysqlIntroJoins.new
+        
+        # creamos el objeto que maneja las operaciones en Postgres
+        pg = PgTrabajo2.new
+        if pg.create_db
+          pg.closeConnection
+          pg = PgTrabajo2.new PgTrabajo2.dbname 
+          pg.create_schema ENV['SCHEMA_NAME']
+          r = pg.client.exec("set search_path to #{ENV['SCHEMA_NAME']}")
+          puts "El schema actual se ha cambiado a " + pg.client.exec('select current_schema()')[0]['current_schema']
+          puts "Obteniendo las tablas de #{ENV['MYSQL_DB']} ..."
+          create_tbl_sql = ''
+          create_fk_sql = ''
+          mysql.get_tables.each do |tbl|
+            #manually create id for each table
+            create_tbl_sql+="create table #{tbl}(\n\tid serial primary key not null," 
+            mysql.get_columns(tbl).each(symbolize_keys: true) do |c|
+              col_type = c[:column_type] == 'int(11)' ? 'int': c[:column_type]  #Estamos limitados solo a los tipos de datos del trabajo#1
+              create_tbl_sql+="\n\t#{c[:column_name]} #{col_type}," if c[:column_name] != "id"
+            end
+            create_tbl_sql+=");\n"
+            create_tbl_sql.gsub!(/,\)/,"\n)")
+            mysql.get_foreign_keys(tbl).each(symbolize_keys: true) do |fk|
+              create_fk_sql+="alter table #{tbl} add foreign key (#{fk[:column_name]}) references #{fk[:referenced_table_name]}(#{fk[:referenced_column_name]});\n"
+            end
+          end
+          begin
+            puts "Creando las tablas en Postgres"
+            puts create_tbl_sql
+            pg.client.exec create_tbl_sql
+            puts "Creando las correspondientes Foreign Keys"
+            puts create_fk_sql 
+            pg.client.exec create_fk_sql
+          rescue PG::Error =>e
+            puts "PG::Error #{e}"  
+          end
+        else
+          puts "Error: La base de datos no ha sido creada"   
+        end
+        
+        # Finalmente cerramos la conexion de Postgres
+        pg.closeConnection
+      else
+        puts "Debe especificar el SCHEMA_NAME en donde se crearán las tablas." 
+        puts "Ejemplo:"
+        puts "rake uni-bd-2013:tp2:pg_db_from_tp1 SCHEMA_NAME=hisakazu_ishibashi"
+      end
+    end
+  end
+end
