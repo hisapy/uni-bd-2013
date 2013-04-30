@@ -1,6 +1,6 @@
-# Bases de Datos - Laboratorio - Trabajo #1
+# Bases de Datos - Laboratorio - Trabajo #2
 
-## Introducción a RDBMS, Herramientas de Modelado, SQL y Git/GitHub
+## Introducción a Diseño y Desarrollo de Vistas, Procedimientos Almacenados y Triggers.
 
 <br />
 
@@ -9,28 +9,40 @@
 
 ## Objetivo
 
-Introducir al alumno a las tecnologías que usaremos durante el semestre, inherentes al estudio de Bases de Datos tales como Sistemas de Administración de Bases de Datos Relacionales (RDBMS por sus siglas en inglés) y el lenguaje SQL, y Herramientas de Modelado de BDs para generación de código SQL e ingeniería inversa de BDs, y al mismo tiempo empezar a conocer herramientas para el desarrollo y trabajo en equipo tales como Sistemas de Mantenimiento de Código (SCM por sus siglas en inglés) y Herramientas de Seguimiento de Tareas más comúnmente conocidas como Issue Trackers.
+Demostrar al alumno como se pueden utilizar los distintos objetos de bases de datos disponibles para que el programador pueda encapsular la *"lógica del negocio"* como un API en la base de datos, haciendo de paso una breve introducción al análisis de requerimientos de un software, identificando casos de uso del mismo, a partir de relatos de usuario (ver SCRUM).
 
 ## Tecnologías a ser usadas en este trabajo
 
-- Herramienta de Modelado: ER Studio 7.5
-- DBMS: MySQL, el mismo que instalaron en el laboratorio (se recomiendan cliente de línea de comando o MySQL Workbench).
-- SCM: Git/GitGUI. Hay un [instalador](http://code.google.com/p/msysgit/downloads/detail?name=Git-1.8.1.2-preview20130201.exe&can=2&q=full+installer+official+git) (recomendado) especial para Windows, o se puede usar la app oficial de [Github para Windows](https://windows.github.com).
-- Repositorio Central: https://github.com/hisapy/uni-bd-2013 (este repo), aquí se entregaran los trabajos entre otros.
-- Issue Tracker: www.github.com tiene un issue tracker incorporado.
+- Las mismas tecnologías utilizadas en el trabajo anterior.
+- Lenguaje de programación Ruby, y su API de conexión a MySQL y a PostgreSQL.
 
-## Instrucciones
+## Acerca del Problema a ser resuelto.
 
-1. Instalar todos los programas necesarios.
-2. Cada alumno debe crear su cuenta de http://github.com, hacer un fork de [este](https://github.com/hisapy/uni-bd-2013) repositorio y clonarlo en sus respectivas estaciones de trabajo. Cada alumno será agregado como colaborador.
-3. Ejecutar el archivo intro_joins.dump.sql y realizar los ejercicios propuestos en intro_sql_joins.pdf. Ambos archivos están en el repo. Cada alumno deberá entregar las respuestas en un archivo .sql cuyo nombre estará compuesto del nombre.apellido.intro_joins.sql (usar solo 1er nombre y primer apellido). El archivo hisakazu.ishibashi.intro_joins.sql
-4. Commit del archivo con las respuestas en sus respectivos repos en github.com.
-5. Enviarme (al repo del cual hicieron el fork) un pull-request de sus repos conteniendo el archivo solicitado en el punto anterior.
+En este trabajo se continuará con la base de datos del trabajo #1, Introducción a SQL Joins. La base de datos en cuestión es una versión pequeña de lo que sería una BD para un sistema de gestión de biblioteca. Actualmente la base de datos cuenta con las siguientes tablas:
 
-## Issue Tracker
+- *members*: En esta tabla se registran las personas que prestan libros.
+- *books*: Los libros de la biblioteca.
+- *loans*: Registro de préstamos de libros, en donde se registran el member_id y el book_id correspondiente.
 
-En el issue tracker https://github.com/hisapy/uni-bd-2013/issues podrán hacer las preguntas que tengan en relación a los ejercicios del semestre, creando el un issue con el label(etiqueta) _Question_. Las respuestas pueden ser asignadas directamente a mi, a nadie o cualquiera, y cualquiera que tenga una respuesta puede colaborar, pero por favor no usar para divulgar una solución a algún ejercicio propuesto.
+Básicamente lo que hay que hacer en este trabajo es adaptar dicha BD (o crear una nueva) a los siguientes requerimientos de almacenamiento:
+
+1. Los socios (*members*) deberán ser registrados con su número de cédula de identidad, nombre, apellido, fecha de nacimiento, sexo, carrera (Ingeniería Civil, Electronmecánica, etc), fecha de inscripción.
+2. Los libros (*books*) deberán ser registrados con su autor, titulo, género, categoría, ISBN. En este sentido hay que aclarar que cada libro cuenta con al menos una copia la cual deberá estar identificacda de manera única.
+3. Los préstamos (*loans*) deberán registrar la copia del libro prestado, el socio a quien se presta el libro, la fecha del préstamo, fecha límite del préstamo, y la fecha de devolución del libro (la fecha en la cual el socio hizo ha devuelto un libro a la biblioteca).
+
+Consecuentemente, existirán requerimientos en cuanto a integridad de datos y reglas de negocio, las cuales deberán ser implementadas y cumplidas en la base de datos. 
+
+Todos los requerimientos serán especificados en issues en el *issue tracker*
 
 
+## Issue Tracker e Instrucciones
 
+El milestone para este trabajo es el milestone [Trabajo 2](https://github.com/hisapy/uni-bd-2013/issues?milestone=2). Ahí se especificará cada issue correspondiente a este trabajo y será también el lugar donde se harán las preguntas y respuestas pertinentes. Favor utilizar solo este medio para consultas. No se aceptarán preguntas por email.
 
+A diferencia del trabajo anterior, este milestone tendrá varios issues. Cada commit deberá referenciar algún issue, de la misma forma en que se ha referenciado el único issue del trabajo anterior, utilizando #N en el comentario del commit, y siendo N el número del issue correspondiente al cual se quiere hacer referencia.
+
+## Forma y Fecha de entrega
+
+Todo el DDL/DML correspondientes a los ejercicios que se proponen en los issues deben ser entregados via pull request en un archivo llamado nombre.apellido.tp2.sql (_siendo nombre el 1er nombre del alumno y apellido el 1er apellido del alumno_) en el directorio trabajo-2.
+
+La fecha limíte para la finalización del milestone es el 07 de mayo de 2013, antes de la 1 de la tarde.
