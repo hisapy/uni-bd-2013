@@ -70,6 +70,6 @@ Antes de dirigirse a los issues será necesario que actualicen sus respectivos *
 
 ## Forma y Fecha de entrega
 
-Todo el DDL/DML correspondientes a los ejercicios que se proponen en los issues deben ser entregados via pull request en un archivo llamado nombre.apellido.tp2.sql (_siendo nombre el 1er nombre del alumno y apellido el 1er apellido del alumno_) en el directorio trabajo-2.
+Todo el DDL/DML correspondientes a los ejercicios que se proponen en los issues deben ser entregados via pull request, enviando solo uno con la totalidad de los issues completados por el alumno. En cada issue se irá especificando las formas de entrega de los mismos.
 
 La fecha limíte para la finalización del milestone es el 11 de mayo de 2013, antes de la 1 de la tarde.
