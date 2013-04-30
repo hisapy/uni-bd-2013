@@ -41,8 +41,35 @@ El milestone para este trabajo es el milestone [Trabajo 2](https://github.com/hi
 
 A diferencia del trabajo anterior, este milestone tendrá varios issues. Cada commit deberá referenciar algún issue, de la misma forma en que se ha referenciado el único issue del trabajo anterior, utilizando #N en el comentario del commit, y siendo N el número del issue correspondiente al cual se quiere hacer referencia.
 
+Antes de dirigirse a los issues será necesario que actualicen sus respectivos *forks* desde el repositorio original. Para esto deberán realizar los siguientes pasos:
+
+1. En el programa GitHub for Windows, en local repositories, click derecho sobre su repo (Ej.: afaraldo/uni-bd-2013), y elegir la opción *open a shell here*. Se abrirá una consola (Power Shell).
+2. Ejecutar el comando para agregar un nuevo remote llamado upstream:
+
+
+  **git remote add upstream git@github.com:hisapy/uni-bd-2013.git**
+
+3. Luego, ejecutar el comando para traer los cambios del repositorio recien agregado como upstream
+
+  **git fetch upstream**
+
+4. Ejecutar el comando para integrar los cambios de upstream a su repositorio local
+
+  **git merge upstream/master**
+
+5. Es posible que luego del comando anterior tengan un mensaje que diga que hay conflictos. Si eso ocurre, hay que ejecutar el comando:
+
+  **git mergetool**
+
+6. Finalmente, si es que hubo conflictos y los pudieron resolver, ejecuten el comando
+
+  **git commit**
+
+######Si no quieren hacer los pasos anteriores y no tienen nada que perder en sus repositorios, pueden borrarlos, volver a hacer el fork, y luego volver a clonarlos en sus respectivas computadoras######
+
+
 ## Forma y Fecha de entrega
 
 Todo el DDL/DML correspondientes a los ejercicios que se proponen en los issues deben ser entregados via pull request en un archivo llamado nombre.apellido.tp2.sql (_siendo nombre el 1er nombre del alumno y apellido el 1er apellido del alumno_) en el directorio trabajo-2.
 
-La fecha limíte para la finalización del milestone es el 07 de mayo de 2013, antes de la 1 de la tarde.
+La fecha limíte para la finalización del milestone es el 11 de mayo de 2013, antes de la 1 de la tarde.
